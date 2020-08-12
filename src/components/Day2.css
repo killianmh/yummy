@@ -1,0 +1,88 @@
+.day {
+  flex: 0 1 180px;
+  margin: 0 20px 20px;
+  min-height: 250px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.day h2 {
+  margin-bottom: 5px;
+}
+.day .header {
+  padding: 10px 10px 15px 10px;
+  background-color: rgba(70, 155, 146, 0.8);
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+}
+.day .underline {
+  width: 0;
+  margin: 0 auto 10px;
+  height: 3px;
+  background-color: rgba(70, 155, 146, 1);
+  transition: 0.3s width; 
+}
+.day:hover .underline {
+  width: 80%;
+  margin: 0 auto 10px;
+  height: 3px;
+  background-color: rgba(70, 155, 146, 1); 
+  transition: 0.3s width;
+}
+.day .box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+.day .box .recipeImg {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+.day .box .recipeImg .remove {
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  transition: 0.3s opacity;
+}
+.day:hover .box .recipeImg .remove {
+  opacity: 1;
+  transition: 0.3s opacity;
+}
+.day .removeButton {
+  width: 100%;
+  border: none;
+  font-size: 20px;
+  color: #ffffff;
+  padding: 10px;
+  background-color: rgba(70, 155, 146, 0.6);
+  transition: 0.3s background-color;
+}
+.day .removeButton:hover {
+  cursor: pointer;
+  background-color: rgba(70, 155, 146, 1);
+  transition: 0.3s background-color;
+}
+.day .box .addButton {
+  width: 100%;
+  height: 100%;
+  background: none;
+  border: none;
+  font-size: 48px;
+  color: rgba(70, 155, 146, 1);
+  opacity: 0.2;
+  transition: 0.3s opacity;
+}
+.day .box .addButton:hover {
+  cursor: pointer;
+}
+.day:hover .box .addButton {
+  opacity: 1;
+  transition: 0.3s opacity;
+}

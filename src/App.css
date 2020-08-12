@@ -36,3 +36,39 @@
     transform: rotate(360deg);
   }
 }
+
+.modalContent {
+  height: 100%;
+  overflow-y: auto;
+}
+.modalContent .modalHeader {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left:0;
+  background-color: rgba(70, 155, 146, 0.8);
+}
+.modalContent .modalHeader h2 {
+  margin: 0;
+  padding: 10px 10px 10px 30px;
+  color: #ffffff;
+}
+.modalContent .modalClose {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border: none;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 10px 20px;
+  background-color: transparent;
+  transition: 0.3s background-color;
+}
+.modalContent .modalClose:hover {
+  cursor: pointer;
+  background-color: rgba(70, 155, 146, 0.8);
+  transition: 0.3s background-color;
+}

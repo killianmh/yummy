@@ -1,0 +1,19 @@
+.modalRecipe {
+  width: 100%;
+  margin: 0 auto;
+}
+.modalRecipe h2 {
+  font-size: 40px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.modalRecipe .imgCont {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 30px;
+}
+.recipeImg {
+  width: 100%;
+  height: auto;
+}
