@@ -1,0 +1,37 @@
+.ingredients h3 {
+  font-size: 25px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+.ingredients {
+  margin-bottom: 30px;
+}
+.ingredients ul {
+  padding-left: 0;
+  margin: 16px 20px;
+}
+.ingredients li {
+  list-style-type: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 20px;
+  background-color: lightgray;
+  border: 1px solid gray;
+}
+.ingredients li:hover {
+  background-color: gray;
+}
+
+.instructions h3 {
+  font-size: 25px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+.instructions ol {
+  padding-left: 16px;
+  margin: 16px 20px;
+}
+.instructions li {
+  font-size: 20px;
+
+}

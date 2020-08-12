@@ -1,0 +1,14 @@
+.menu {
+
+}
+.menu .day-cont{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+@media (min-width: 1300px) {
+  .menu {
+    flex: 1;
+  }
+}
