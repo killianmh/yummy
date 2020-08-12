@@ -5,6 +5,8 @@ import Menu from './components/Menu'
 import Recipe from './components/Recipe'
 import RecipeList from './components/RecipeList'
 import Modal from 'react-modal';
+import AddRecipe from './components/AddRecipe'
+import NewRecipe from './components/NewRecipe'
 import { FirebaseContext, database } from './components/Firebase'
 
 import small from './images/small.jpg'
@@ -251,6 +253,12 @@ function App() {
         setModalStyles(customStyles)
         openNewRecipeModal(title)
         break
+      case 4: 
+        setModalType("manual")
+        customStyles.content.maxWidth = "768px"
+        setModalStyles(customStyles)
+        openNewRecipeModal(title)
+        break
     }
     // console.log(title, id)
     // let modalIndex = testRecipes.map(el => {
@@ -303,20 +311,36 @@ function App() {
           </div>
         )
       } else if (modalType === "new") {
-        return (
-          <div className="modalContent">
-            <div className="modalHeader">
-              <h2>New Recipe</h2>
-                <button
-                  className="modalClose"
-                  onClick={closeModal}
-                >
-                <i className="fas fa-times"></i>
-              </button>
+          return (
+            <div className="modalContent new">
+              <div className="modalHeader">
+                <h2>Add a New Recipe</h2>
+                  <button
+                    className="modalClose"
+                    onClick={closeModal}
+                  >
+                  <i className="fas fa-times"></i>
+                </button>
+              </div>
+              <AddRecipe 
+                manualAdd={openModal}/>
             </div>
-            Adding new recipe
-          </div>
-        )
+          )
+      } else if (modalType === "manual") {
+          return (
+            <div className="modalContent">
+              <div className="modalHeader">
+                <h2>Create a New Recipe</h2>
+                  <button
+                    className="modalClose"
+                    onClick={closeModal}
+                  >
+                  <i className="fas fa-times"></i>
+                </button>
+              </div>
+              <NewRecipe />
+            </div>
+          )
       }
     }
   }

@@ -41,6 +41,11 @@
   height: 100%;
   overflow-y: auto;
 }
+.modalContent.new {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .modalContent .modalHeader {
   position: absolute;
   top: 0;
@@ -50,7 +55,7 @@
 }
 .modalContent .modalHeader h2 {
   margin: 0;
-  padding: 10px 10px 10px 30px;
+  padding: 10px 10px 10px 20px;
   color: #ffffff;
 }
 .modalContent .modalClose {
