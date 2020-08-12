@@ -1,0 +1,9 @@
+.newRecipe {
+  text-align: center;
+  margin-top: 20px;
+}
+.newRecipe h3 {
+  font-size: 25px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
