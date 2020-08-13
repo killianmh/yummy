@@ -2,10 +2,12 @@ import React, {useContext} from 'react';
 import Card from './Card'
 import './RecipeList.css'
 import { FirebaseContext } from './Firebase'
+import axios from 'axios'
 
 
 const RecipeList = props => {
   const database = useContext(FirebaseContext)
+  console.log(database)
 
   const addToMenu = (userId, name, email) => {
     console.log('pressed')
@@ -13,6 +15,18 @@ const RecipeList = props => {
       username: name,
       email: email
     });
+  }
+
+  const cloudinaryServerUpload = () => {
+    axios.post('/uploadImg', {
+
+    })
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   const recipes = props.recipes
@@ -60,6 +74,11 @@ const RecipeList = props => {
         <button
           className="firebaseTest"
           onClick={() => addToMenu(1, "matt", "test@test.com")}>
+
+        </button>
+        <button
+          className="cloudinaryTest"
+          onClick={() => cloudinaryServerUpload()}>
 
         </button>
       </div>

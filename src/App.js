@@ -347,25 +347,25 @@ function App() {
   
     return (
     <FirebaseContext.Provider value={database}>
-      <div className="App">
-        {/* <Header>
-          <Nav></Nav>
-        </Header> */}
-        {/* <Menu /> */}
-        <Modal
-          isOpen={modalIsOpen}
-          // onAfterOpen={afterOpenModal}
-          onRequestClose={closeModal}
-          style={modalStyles}
-          contentLabel="Example Modal"
-        >
-          {generateModalContent()}
-        </Modal>
-        <RecipeList 
-          recipes={testRecipes} 
-          openModal={openModal}
-          newRecipe={openModal}/>
-      </div>
+        <div className="App">
+          {/* <Header>
+            <Nav></Nav>
+          </Header> */}
+          {/* <Menu /> */}
+          <Modal
+            isOpen={modalIsOpen}
+            // onAfterOpen={afterOpenModal}
+            onRequestClose={closeModal}
+            style={modalStyles}
+            contentLabel="Example Modal"
+          >
+            {generateModalContent()}
+          </Modal>
+          <RecipeList 
+            recipes={testRecipes} 
+            openModal={openModal}
+            newRecipe={openModal} />
+        </div>
     </FirebaseContext.Provider>
   );
 }
