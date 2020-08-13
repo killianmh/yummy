@@ -5,7 +5,7 @@ import Menu from './components/Menu'
 import Recipe from './components/Recipe'
 import RecipeList from './components/RecipeList'
 import Modal from 'react-modal';
-import AddRecipe from './components/AddRecipe'
+import AddRecipeImage from './components/AddRecipeImage'
 import NewRecipe from './components/NewRecipe'
 import { FirebaseContext, database } from './components/Firebase'
 
@@ -314,7 +314,7 @@ function App() {
           return (
             <div className="modalContent new">
               <div className="modalHeader">
-                <h2>Add a New Recipe</h2>
+                <h2>Step 1: Add an Image</h2>
                   <button
                     className="modalClose"
                     onClick={closeModal}
@@ -322,7 +322,7 @@ function App() {
                   <i className="fas fa-times"></i>
                 </button>
               </div>
-              <AddRecipe 
+              <AddRecipeImage
                 manualAdd={openModal}/>
             </div>
           )
