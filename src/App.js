@@ -8,7 +8,6 @@ import Modal from 'react-modal';
 import AddRecipe from './components/AddRecipe'
 import NewRecipe from './components/NewRecipe'
 import { FirebaseContext, database } from './components/Firebase'
-import CloudinaryCore, { CloudinaryContext } from './components/Cloudinary'
 
 import small from './images/small.jpg'
 import medium from './images/medium.jpg'
@@ -348,7 +347,6 @@ function App() {
   
     return (
     <FirebaseContext.Provider value={database}>
-      <CloudinaryContext.Provider value={CloudinaryCore}>
         <div className="App">
           {/* <Header>
             <Nav></Nav>
@@ -368,7 +366,6 @@ function App() {
             openModal={openModal}
             newRecipe={openModal} />
         </div>
-      </CloudinaryContext.Provider>
     </FirebaseContext.Provider>
   );
 }
