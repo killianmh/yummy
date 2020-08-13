@@ -29,6 +29,16 @@ const RecipeList = props => {
       })
   }
 
+  const cheerioScrapeImg = () => {
+    axios.get('/scrapeImg')
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
   const recipes = props.recipes
   // const {viewRef, viewTarget, addRef, addTarget, name, image} = props
   const recipeActions = {
@@ -79,6 +89,11 @@ const RecipeList = props => {
         <button
           className="cloudinaryTest"
           onClick={() => cloudinaryServerUpload()}>
+
+        </button>
+        <button
+          className="cloudinaryTest"
+          onClick={() => cheerioScrapeImg()}>
 
         </button>
       </div>

@@ -6,6 +6,7 @@ const path = require("path");
 const Cloudinary = require("./Cloudinary/Cloudinary")
 const cloudinarySignature = Cloudinary.cloudinarySignature
 const axios = require('axios');
+const cheerio = require('cheerio')
 
 app.use(express.static(path.join(__dirname, "../build")));
 
@@ -13,6 +14,53 @@ app.get('/test', (req, res) => {
   const signature = cloudinarySignature().signature
   console.log("cloudinary signature", signature)
   res.send(process.env.CLOUDINARY_CLOUD_NAME)
+})
+
+app.get('/scrapeImg', (req, res, next) => {
+  console.log(req.query.url)
+  console.log(typeof(req.query.url))
+  // console.log(toString(req.query.url))
+  const url = req.query.url
+  axios.get(req.query.url)
+    .then(response => {
+      if (response.status === 200) {
+        // Load the web page source code into a cheerio instance
+        const $ = cheerio.load(response.data)
+        
+        // return first 5 images
+        const allImgElems = $('img')
+        const imgElems = Object.keys(allImgElems)
+          .slice(0, 5)
+          .map(el => {
+            return allImgElems[el]
+          })
+        imgElems.forEach(el => {
+          console.log($(el).attr('src'))
+        })
+        console.log(imgElems)
+        res.status(200)
+      }
+    })
+    .catch(error => {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+        error.status = error.response.status
+      } else if (error.request) {
+        // The request was made but no response was received
+        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // http.ClientRequest in node.js
+        console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+      }
+      console.log(error.config);
+      next(error)
+    });
 })
 
 app.post('/uploadImg', (req, res, next) => {
