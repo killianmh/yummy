@@ -34,11 +34,13 @@ app.get('/scrapeImg', (req, res, next) => {
           .map(el => {
             return allImgElems[el]
           })
+        const imgSources = [] 
         imgElems.forEach(el => {
           console.log($(el).attr('src'))
+          imgSources.push($(el).attr('src'))
         })
         console.log(imgElems)
-        res.status(200)
+        res.status(200).send(imgSources)
       }
     })
     .catch(error => {
