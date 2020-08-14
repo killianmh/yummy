@@ -8,11 +8,6 @@ const cloudinarySignature = Cloudinary.cloudinarySignature
 const axios = require('axios');
 const cheerio = require('cheerio')
 
-function sayHello() {
-  console.log('Hello');
-}
-sayHello();
-
 app.use(express.static(path.join(__dirname, "../build")));
 
 app.get('/test', (req, res) => {
