@@ -56,6 +56,14 @@ const RecipeList = props => {
       }
     ]
   }
+  
+  // <Card 
+  //     title={recipe.name} 
+  //     type={"recipe"} 
+  //     actions={recipeActions} 
+  //     key={id}
+  //     openModal={props.openModal}
+  //     image={recipe.image}>
 
   const recipeList = recipes.map((recipe, id) => 
     <Card 
@@ -64,7 +72,7 @@ const RecipeList = props => {
       actions={recipeActions} 
       key={id}
       openModal={props.openModal}
-      image={recipe.image}>
+    >
     </Card>
   )
 

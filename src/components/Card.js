@@ -32,10 +32,17 @@ const Card = props => {
   }
   
   // console.log(props.title)
+
+  let backgroundStyle
+  if (props.image) {
+    backgroundStyle = {
+      backgroundImage: "url(" + props.image + ")"
+    }
+  }
   
   
   return (
-    <div className={cardClass} style={{backgroundImage: "url(" + props.image + ")"}}>
+    <div className={cardClass} style={backgroundStyle}>
       <div className="card-header">
         <h2>{props.title}</h2>
       </div>
