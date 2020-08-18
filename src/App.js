@@ -14,7 +14,7 @@ import { FirebaseContext, database } from './components/Firebase'
 // import medium from './images/medium.jpg'
 // import large from './images/large.jpg'
 
-Modal.setAppElement('#root')\
+Modal.setAppElement('#root')
 
 // {
 //   name: "pudding", 
