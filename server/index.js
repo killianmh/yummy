@@ -16,6 +16,64 @@ app.get('/test', (req, res) => {
   res.send(process.env.CLOUDINARY_CLOUD_NAME)
 })
 
+app.get('/scrapeIngred', (req, res, next) => {
+  const url = req.query.url
+  console.log(url)
+  axios.get(url)
+    .then(response => {
+      if (response.status === 200) {
+        // Load the web page source code into a cheerio instance
+        const $ = cheerio.load(response.data)
+        
+        // return first 5 ul elements
+        const ingred =$('script[type="application/ld+json"]').html();
+        // console.log(ingred)
+        let ingredObj = JSON.parse(ingred)
+        console.log(ingredObj)
+        // find array with key recipeIngredient (see this: https://developers.google.com/search/docs/data-types/recipe)
+        // console.log(ingredObj['@graph'])
+        // let recipeIngred = ingredObj['@graph'].find(el => {
+        //   return el['@type'] === "Recipe"
+        // })
+        // console.log(recipeIngred)
+        // const allUlElems = $('main ul')
+        // const ulElems = Object.keys(allUlElems)
+        //   .slice(0, 5)
+        //   .map(el => {
+        //     return allUlElems[el]
+        //   })
+        // const ulArray = [] 
+        // ulElems.forEach(el => {
+        //   console.log($(el).html())
+        //   // console.log($(el))
+        //   ulArray.push($(el))
+        // })
+        // console.log(ulArray)
+        res.status(200).send(ingred)
+      }
+    })
+  .catch(error => {
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+      error.status = error.response.status
+    } else if (error.request) {
+      // The request was made but no response was received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      // http.ClientRequest in node.js
+      console.log(error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log('Error', error.message);
+    }
+    console.log(error.config);
+    next(error)
+  });
+})
+
 app.get('/scrapeImg', (req, res, next) => {
   console.log(req.query.url)
   console.log(typeof(req.query.url))
@@ -34,11 +92,13 @@ app.get('/scrapeImg', (req, res, next) => {
           .map(el => {
             return allImgElems[el]
           })
+        const imgSources = [] 
         imgElems.forEach(el => {
           console.log($(el).attr('src'))
+          imgSources.push($(el).attr('src'))
         })
         console.log(imgElems)
-        res.status(200)
+        res.status(200).send(imgSources)
       }
     })
     .catch(error => {
@@ -103,6 +163,22 @@ app.post('/uploadImg', (req, res, next) => {
       console.log(error.config);
       next(error)
     });
+})
+
+app.get('/uploadSignature', (req, res) => {
+  console.log(req.query.data)
+  // get cloudinary signature for upload
+  const signature = cloudinarySignature(req.query.data)
+  // const timestamp = cloudinarySignature().timestamp
+
+  if (signature) {
+    res.status(200).send({
+      signature: signature
+    })
+  }
+  else {
+    res.status(500).send('failed')
+  }
 })
 
 app.get('/uploadConfig', (req, res) => {

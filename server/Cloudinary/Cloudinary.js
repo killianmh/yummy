@@ -20,7 +20,26 @@ const cloudinarySignature = () => {
   }
 }
 
+const cloudinarySignature2 = (params) => {
+  // Get the timestamp in seconds
+  console.log("signature function log api secret:", process.env.CLOUDINARY_API_SECRET)
+  // console.log(params)
+  // const timestamp = Math.round((new Date).getTime()/1000);
+  const timestamp = params.timestamp
+  const sigParams = JSON.parse(params)
+  console.log({...sigParams})
+  const signature = cloudinary.utils.api_sign_request({ ...sigParams }, process.env.CLOUDINARY_API_SECRET);
+  console.log(signature) 
+  // const signature = cloudinary.utils.api_sign_request({
+  //   timestamp: timestamp,
+  //   public_id: 'test_image',
+  //   source: 'uw',
+  //   upload_preset: 'ml_default'
+  //   }, process.env.CLOUDINARY_API_SECRET); 
+  return signature
+}
+
 module.exports = {
   cloudinary: cloudinary,
-  cloudinarySignature: cloudinarySignature
+  cloudinarySignature: cloudinarySignature2
 }
