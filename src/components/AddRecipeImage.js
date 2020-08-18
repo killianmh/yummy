@@ -3,58 +3,125 @@ import './AddRecipeImage.css'
 import axios from 'axios'
 
 const AddRecipeImage = props => {
-  const [recipeImgURL, setRecipeImgURL] = React.useState("")
-  const [imgSources, setImgSources] = React.useState(null)
+  // const [recipeImgURL, setRecipeImgURL] = React.useState("")
+  const [imgSource, setImgSource] = React.useState(null)
 
-  const handleSubmit = e => {
-    e.preventDefault()
-    console.log("submitted")
-    setRecipeImgURL("")
-    // submit to server
-    axios.get('/scrapeImg', {
-        params: {
-          url: recipeImgURL
-        }
-      })
+  // const handleSubmit = e => {
+  //   e.preventDefault()
+  //   console.log("submitted")
+  //   setRecipeImgURL("")
+  //   // submit to server
+  //   axios.get('/scrapeImg', {
+  //       params: {
+  //         url: recipeImgURL
+  //       }
+  //     })
+  //     .then((response) => {
+  //       console.log(response)
+  //       if (response.data.length > 0) {
+  //         setImgSources(response.data)
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error)
+  //     })
+  // }
+
+  // const handleChange = e => {
+  //   setRecipeImgURL(e.target.value)
+  // }
+
+  // const imageChoices = () => {
+  //   return(
+  //     imgSources.map((img, id) => 
+  //       <img src={img} alt="My image" className="recipeImg"/>
+  //     ) 
+  //   )
+  // }
+
+  const generateSignature = (callback, params_to_sign) => {
+    console.log(params_to_sign)
+    axios.get('/uploadSignature', {
+      params: {
+        data: params_to_sign
+      }
+    })
       .then((response) => {
         console.log(response)
-        if (response.data.length > 0) {
-          setImgSources(response.data)
+        if (response.status === 200) {
+          console.log(response.data.signature)
+          return callback(response.data.signature)
         }
       })
       .catch((error) => {
         console.log(error)
+        return error
       })
   }
 
-  const handleChange = e => {
-    setRecipeImgURL(e.target.value)
+  const checkUploadResult = (error, result) => {
+    if (result && result.event === "success") {
+      console.log(result.info)
+      setImgSource(result.info.secure_url)
+    }
+    else {
+      console.log(error)
+    }
   }
 
-  const imageChoices = () => {
-    return(
-      imgSources.map((img, id) => 
-        <img src={img} alt="My image" className="recipeImg"/>
-      ) 
-    )
+  let uploadWidget = window.cloudinary.createUploadWidget({ 
+    cloudName: "da8ekwkyg", 
+    apiKey: '313357833943387',
+    uploadPreset: "ml_default",
+    publicId: 'test_image',
+    uploadSignature: generateSignature,
+    multiple: false  }, (error, result) => {
+      checkUploadResult(error, result)
+     })
+
+  const showWidget = () => {
+    uploadWidget.open()
+  }
+
+  const imgReject = () => {
+    setImgSource(null)
+  }
+
+  const imgAccept = () => {
+    // post image url to recipe object in firebase using imgSource state variable
+
+    // change to ingredients modal
+    props.nextStep()
   }
  
   return(
     <div className="newRecipe">
-      <img src="https://www.eatwell101.com/wp-content/uploads/2018/05/Chicken-with-Spinach-in-Creamy-Parmesan-Sauce-1.jpg" alt="My image" className="recipeImg"/>
       <div className="scraper">
-        {imgSources 
-          ? imageChoices()
+        {imgSource
+          ? (<div>
+                <img src={imgSource}/>
+                <button
+                  className="uploadBtn"
+                  onClick={() => imgReject()}>
+                  Reject
+                </button>
+                <button
+                  className="uploadBtn"
+                  onClick={() => props.nextStep("Step 2: Add Ingredients", 5)}>
+                  Accept
+                </button>
+            </div>)
           : ( 
               <div>
-                <h2>Add a recipe URL and we'll find a couple photos for you to choose from</h2>
-                <form onSubmit={handleSubmit}>
-                  <label>
-                    URL:
-                    <input type="url" required value={recipeImgURL} onChange={handleChange} />
-                  </label>
-                  <input type="submit" value="Submit" />
-                </form>
+                <h2>Upload an image</h2>
+                <button
+                  className="uploadBtn"
+                  onClick={() => showWidget()}>
+                  Upload
+                </button>
+                <button onClick={() => props.nextStep("Step 2: Add Ingredients", 5)}>
+                  skip
+                </button>
               </div>) }
         {/* <button 
           className="manualAdd"

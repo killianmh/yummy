@@ -7,6 +7,7 @@ import RecipeList from './components/RecipeList'
 import Modal from 'react-modal';
 import AddRecipeImage from './components/AddRecipeImage'
 import NewRecipe from './components/NewRecipe'
+import AddRecipeIngred from './components/AddRecipeIngred'
 import { FirebaseContext, database } from './components/Firebase'
 
 import small from './images/small.jpg'
@@ -259,6 +260,11 @@ function App() {
         setModalStyles(customStyles)
         openNewRecipeModal(title)
         break
+      case 5: 
+        setModalType("newIngred")
+        customStyles.content.maxWidth = "768px"
+        setModalStyles(customStyles)
+        break
     }
     // console.log(title, id)
     // let modalIndex = testRecipes.map(el => {
@@ -322,10 +328,25 @@ function App() {
                   <i className="fas fa-times"></i>
                 </button>
               </div>
-              <AddRecipeImage
-                manualAdd={openModal}/>
+              <AddRecipeImage 
+                nextStep={openModal}/>
             </div>
           )
+      } else if (modalType === "newIngred") {
+        return (
+          <div className="modalContent new">
+            <div className="modalHeader">
+              <h2>Step 2: Add Ingredients</h2>
+                <button
+                  className="modalClose"
+                  onClick={closeModal}
+                >
+                <i className="fas fa-times"></i>
+              </button>
+            </div>
+            <AddRecipeIngred />
+          </div>
+        )
       } else if (modalType === "manual") {
           return (
             <div className="modalContent">
