@@ -10,11 +10,22 @@ import NewRecipe from './components/NewRecipe'
 import AddRecipeIngred from './components/AddRecipeIngred'
 import { FirebaseContext, database } from './components/Firebase'
 
-import small from './images/small.jpg'
-import medium from './images/medium.jpg'
-import large from './images/large.jpg'
+// import small from './images/small.jpg'
+// import medium from './images/medium.jpg'
+// import large from './images/large.jpg'
 
-Modal.setAppElement('#root')
+Modal.setAppElement('#root')\
+
+// {
+//   name: "pudding", 
+//   viewRef: "#", 
+//   viewTarget: "_blank",
+//   addRef: "/",
+//   addTarget: "_self",
+//   image: small,
+//   ingredients: [],
+//   instructions: []
+// },
 
 function App() {
   const testRecipes = 
@@ -25,7 +36,6 @@ function App() {
         viewTarget: "_blank",
         addRef: "/",
         addTarget: "_self",
-        image: small,
         ingredients: [],
         instructions: []
       }, 
@@ -35,7 +45,6 @@ function App() {
         viewTarget: "_blank",
         addRef: "/",
         addTarget: "_self",
-        image: small,
         ingredients: ["milk", "2 eggs", "sugar"],
         instructions: ["Add milk and eggs to a pot.", "Boil, stirring constantly", "Add flavoring"]
       }, 
@@ -45,7 +54,6 @@ function App() {
         viewTarget: "_blank",
         addRef: "/",
         addTarget: "_self",
-        image: medium,
         ingredients: [],
         instructions: []
       }, 
@@ -55,7 +63,6 @@ function App() {
         viewTarget: "_blank",
         addRef: "/",
         addTarget: "_self",
-        image: large,
         ingredients: ["milk", "2 eggs", "sugar"],
         instructions: ["Add milk and eggs to a pot.", "Boil, stirring constantly", "Add flavoring"]
       }, 
@@ -65,7 +72,6 @@ function App() {
         viewTarget: "_blank",
         addRef: "/",
         addTarget: "_self",
-        image: large,
         ingredients: ["milk", "2 eggs", "sugar"],
         instructions: ["Add milk and eggs to a pot.", "Boil, stirring constantly", "Add flavoring"]
       }, 
@@ -75,7 +81,6 @@ function App() {
         viewTarget: "_blank",
         addRef: "/",
         addTarget: "_self",
-        image: medium,
         ingredients: ["milk", "2 eggs", "sugar"],
         instructions: ["Add milk and eggs to a pot.", "Boil, stirring constantly", "Add flavoring"]
       }, 
@@ -85,7 +90,6 @@ function App() {
         viewTarget: "_blank",
         addRef: "/",
         addTarget: "_self",
-        image: small,
         ingredients: ["milk", "2 eggs", "sugar"],
         instructions: ["Add milk and eggs to a pot.", "Boil, stirring constantly", "Add flavoring"]
       }, 
@@ -95,7 +99,6 @@ function App() {
         viewTarget: "_blank",
         addRef: "/",
         addTarget: "_self",
-        image: large,
         ingredients: ["milk", "2 eggs", "sugar"],
         instructions: ["Add milk and eggs to a pot.", "Boil, stirring constantly", "Add flavoring"]
       }, 
@@ -105,7 +108,6 @@ function App() {
         viewTarget: "_blank",
         addRef: "/",
         addTarget: "_self",
-        image: large,
         ingredients: ["milk", "2 eggs", "sugar"],
         instructions: ["Add milk and eggs to a pot.", "Boil, stirring constantly", "Add flavoring"]
       },
@@ -115,7 +117,6 @@ function App() {
         viewTarget: "_blank",
         addRef: "/",
         addTarget: "_self",
-        image: small,
         ingredients: ["milk", "2 eggs", "sugar"],
         instructions: ["Add milk and eggs to a pot.", "Boil, stirring constantly", "Add flavoring"]
       },
@@ -125,7 +126,6 @@ function App() {
         viewTarget: "_blank",
         addRef: "/",
         addTarget: "_self",
-        image: medium,
         ingredients: ["milk", "2 eggs", "sugar"],
         instructions: ["Add milk and eggs to a pot.", "Boil, stirring constantly", "Add flavoring"]
       },
@@ -135,7 +135,6 @@ function App() {
         viewTarget: "_blank",
         addRef: "/",
         addTarget: "_self",
-        image: small,
         ingredients: ["milk", "2 eggs", "sugar"],
         instructions: ["Add milk and eggs to a pot.", "Boil, stirring constantly", "Add flavoring"]
       },
@@ -161,7 +160,6 @@ function App() {
             viewTarget: "_blank",
             addRef: "/",
             addTarget: "_self",
-            image: small
           }, 
       },
       {
