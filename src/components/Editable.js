@@ -27,21 +27,21 @@ const Editable = (
               >
                 {children}
               </div>
-          )
-          : (
-            <div
-              className="ingredient"
-              onClick={() => setEditing(true)}
-            >
-              <span>{text || placeholder}</span>
-            </div>
-          )
+            )
+            : (
+                <div
+                  className="ingredient"
+                  onClick={() => setEditing(true)}
+                >
+                  <span>{text || placeholder}</span>
+                </div>
+              )
         }
-        <button
+        {/* <button
           className="ingredDelete"
           onClick={e => props.delete(e, props.index)}>
           {props.index}
-        </button>
+        </button> */}
       </div>
     )
 }

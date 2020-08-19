@@ -1,65 +1,65 @@
 import React from 'react';
-import './IngredientList.css'
+import './InstructionList.css'
 import Editable from './Editable'
 import axios from 'axios'
 
-const IngredientList = (props) => {
+const InstructionList = (props) => {
   const inputRef = React.useRef()
-  const [newIngred, setNewIngred] = React.useState("")
-  const [ingredients, setIngredients] = React.useState(props.ingredients ? props.ingredients : [])
+  const [newInstruction, setNewInstruction] = React.useState("")
+  const [instructions, setInstructions] = React.useState(props.instructions ? props.instructions : [])
   const [error, setError] = React.useState(null)
 
   const handleNewSubmit = e => {
     e.preventDefault()
-    if (newIngred.trim().length === 0) {
-      let errorMsg = "Please enter a valid ingredient"
+    if (newInstruction.trim().length === 0) {
+      let errorMsg = "Please enter a valid instruction"
       setError(errorMsg)
-      setNewIngred("")
+      setNewInstruction("")
       return
     }
     console.log("submitted")
     // let newIngredients = ingredients.slice().push(e.target.value)
-    setIngredients([...ingredients, newIngred.trim()])
-    setNewIngred("")
+    setInstructions([...instructions, newInstruction.trim()])
+    setNewInstruction("")
   }
 
   const handleNewChange = e => {
-    setNewIngred(e.target.value)
+    setNewInstruction(e.target.value)
   }
 
   const handleChange = (e, index) => {
-    let updatedIngred = ingredients.slice()
-    updatedIngred[index] = e.target.value
-    setIngredients(updatedIngred)
+    let updatedInstructions = instructions.slice()
+    updatedInstructions[index] = e.target.value
+    setInstructions(updatedInstructions)
   }
 
   const handleDelete = (e, index) => {
-    console.log(ingredients)
-    let updatedIngred = ingredients.slice()
-    updatedIngred.splice(index, 1)
-    console.log(ingredients)
-    setIngredients(updatedIngred)
+    console.log(instructions)
+    let updatedInstructions = instructions.slice()
+    updatedInstructions.splice(index, 1)
+    console.log(instructions)
+    setInstructions(updatedInstructions)
   }
 
-  const renderIngredList = ingredients.map((el, index) =>
+  const renderStepList = instructions.map((el, index) =>
     <li key={index}>
       <Editable 
         childRef={inputRef}
         text={el}
-        placeholder="Enter Ingredient"
+        placeholder="Enter Step"
         delete={handleDelete}
         index={index}
       >
         <input
           ref={inputRef}
           type="text"
-          name={`ingredient-${index}`}
-          placeholder="Enter Ingredient"
+          name={`step-${index}`}
+          placeholder="Enter Step"
           value={el}
           onChange={e => handleChange(e, index)} />
       </Editable>
       <button
-        className="ingredDelete"
+        className="instructDelete"
         onClick={e => handleDelete(e, index)}>
         {index}
       </button>
@@ -83,16 +83,16 @@ const IngredientList = (props) => {
   // )))}
 
   const handleSubmit = () => {
-    if (ingredients.length === 0) {
-      let errorMsg = "Ingredients required"
+    if (instructions.length === 0) {
+      let errorMsg = "Instructions required"
       setError(errorMsg)
       return
     }
     console.log("submitted")
     // Add name to recipe
-    props.updateRecipe("ingredients", ingredients)
-    setIngredients([])
-    props.complete("ingredients")
+    props.updateRecipe("instructions", instructions)
+    setInstructions([])
+    props.complete("instructions")
   }
 
   return(
@@ -102,15 +102,15 @@ const IngredientList = (props) => {
         <input type="text" required value={newIngred} onChange={handleChange} />
         <input type="submit" value="Add" />
       </form> */}
-      <ul>
-        {renderIngredList}
+      <ol>
+        {renderStepList}
         <li>
           <form onSubmit={handleNewSubmit}>
-            <input type="text" required value={newIngred} onChange={e => handleNewChange(e)} />
+            <input type="text" required value={newInstruction} onChange={e => handleNewChange(e)} />
             <input type="submit" value="Add" />
           </form>
         </li>
-      </ul>
+      </ol>
       {error
         ? (<div className="error">{error}</div>)
         : (null)
@@ -124,5 +124,5 @@ const IngredientList = (props) => {
   )
 }
 
-export default IngredientList
+export default InstructionList
 

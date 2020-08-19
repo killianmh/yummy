@@ -7,7 +7,7 @@ import RecipeList from './components/RecipeList'
 import Modal from 'react-modal';
 import AddRecipeImage from './components/AddRecipeImage'
 import NewRecipe from './components/NewRecipe'
-import AddRecipeIngred from './components/AddRecipeIngred'
+import AddRecipe from './components/AddRecipe'
 import { FirebaseContext, database } from './components/Firebase'
 
 // import small from './images/small.jpg'
@@ -316,9 +316,9 @@ function App() {
         )
       } else if (modalType === "new") {
           return (
-            <div className="modalContent new">
+            <div className="modalCont">
               <div className="modalHeader">
-                <h2>Step 1: Add an Image</h2>
+                <h2>Add a New Recipe</h2>
                   <button
                     className="modalClose"
                     onClick={closeModal}
@@ -326,9 +326,11 @@ function App() {
                   <i className="fas fa-times"></i>
                 </button>
               </div>
-              <AddRecipeImage 
-                nextStep={openModal}/>
+            <div className="modalContent new">
+              <AddRecipe />
             </div>
+            </div>
+            
           )
       } else if (modalType === "newIngred") {
         return (
@@ -342,7 +344,7 @@ function App() {
                 <i className="fas fa-times"></i>
               </button>
             </div>
-            <AddRecipeIngred />
+            <AddRecipe />
           </div>
         )
       } else if (modalType === "manual") {
