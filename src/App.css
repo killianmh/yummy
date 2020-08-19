@@ -37,8 +37,12 @@
   }
 }
 
+.modalCont {
+  height: calc(100% - 45px);
+  margin-top: 45px;
+  overflow-y: scroll;
+}
 .modalContent {
-  height: 100%;
   overflow-y: auto;
 }
 .modalContent.new {
@@ -46,19 +50,19 @@
   justify-content: center;
   align-items: center;
 }
-.modalContent .modalHeader {
+.modalHeader {
   position: absolute;
   top: 0;
   right: 0;
   left:0;
   background-color: rgba(70, 155, 146, 0.8);
 }
-.modalContent .modalHeader h2 {
+.modalHeader h2 {
   margin: 0;
   padding: 10px 10px 10px 20px;
   color: #ffffff;
 }
-.modalContent .modalClose {
+.modalClose {
   position: absolute;
   top: 0;
   right: 0;
@@ -72,7 +76,7 @@
   background-color: transparent;
   transition: 0.3s background-color;
 }
-.modalContent .modalClose:hover {
+.modalClose:hover {
   cursor: pointer;
   background-color: rgba(70, 155, 146, 0.8);
   transition: 0.3s background-color;

@@ -3,7 +3,7 @@ import './Recipe.css';
 import List from './List'
 
 const Recipe = props => {
-  const { image, ingredients, instructions} = props.recipe
+  const { image, ingredients, instructions, name} = props.recipe
 
   return (
     <div className="modalRecipe">

@@ -1,0 +1,22 @@
+.modalNav {
+  position: absolute;
+  top: 52px;
+  left: 0;
+  padding: 10px 20px 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.modalNav .step {
+  margin: 0 5px;
+  color: grey;
+}
+.modalNav .step.current {
+  color: black;
+  font-weight: bold;
+}
+.modalNav .step i {
+  position: relative;
+  top: 2px;
+  margin-left: 10px;
+  color: grey;
+}

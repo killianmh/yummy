@@ -93,6 +93,16 @@ const AddRecipeImage = props => {
     // change to ingredients modal
     props.nextStep()
   }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    console.log("submitted")
+    // Add name to recipe
+    // Add name to recipe
+    props.updateRecipe("image", imgSource)
+    setImgSource(null)
+    props.complete("image")
+  }
  
   return(
     <div className="newRecipe">
@@ -107,7 +117,7 @@ const AddRecipeImage = props => {
                 </button>
                 <button
                   className="uploadBtn"
-                  onClick={() => props.nextStep("Step 2: Add Ingredients", 5)}>
+                  onClick={handleSubmit}>
                   Accept
                 </button>
             </div>)
@@ -119,7 +129,7 @@ const AddRecipeImage = props => {
                   onClick={() => showWidget()}>
                   Upload
                 </button>
-                <button onClick={() => props.nextStep("Step 2: Add Ingredients", 5)}>
+                <button onClick={handleSubmit}>
                   skip
                 </button>
               </div>) }

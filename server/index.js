@@ -16,7 +16,46 @@ app.get('/test', (req, res) => {
   res.send(process.env.CLOUDINARY_CLOUD_NAME)
 })
 
-app.get('/scrapeIngred', (req, res, next) => {
+const scraper = (obj, propType, returnVal = true, value) => {
+  let result = null
+  if (obj instanceof Array) {
+    for (let i = 0; i < obj.length; i++) {
+      result = scraper(obj[i], propType, returnVal, value)
+      if (result) {
+        break
+      }
+    }
+  } else {
+    for (let prop in obj) {
+      if (prop == propType) {
+        if (value) {
+          if (obj[prop] === value) {
+            if (returnVal) {
+              return obj[prop]
+            } else {
+              return obj
+            }
+          }
+        } else {
+          if (returnVal) {
+            return obj[prop]
+          } else {
+            return obj
+          }
+        }
+      }
+      if (obj[prop] instanceof Object || obj[prop] instanceof Array) {
+        result = scraper(obj[prop], propType, returnVal, value)
+        if (result) {
+          break
+        }
+      }
+    }
+  }
+  return result
+}
+
+app.get('/scrapeRecipe', (req, res, next) => {
   const url = req.query.url
   console.log(url)
   axios.get(url)
@@ -25,31 +64,31 @@ app.get('/scrapeIngred', (req, res, next) => {
         // Load the web page source code into a cheerio instance
         const $ = cheerio.load(response.data)
         
-        // return first 5 ul elements
-        const ingred =$('script[type="application/ld+json"]').html();
+        // load JSON metadata
+        const recipeJson =$('script[type="application/ld+json"]').html();
         // console.log(ingred)
-        let ingredObj = JSON.parse(ingred)
-        console.log(ingredObj)
-        // find array with key recipeIngredient (see this: https://developers.google.com/search/docs/data-types/recipe)
-        // console.log(ingredObj['@graph'])
-        // let recipeIngred = ingredObj['@graph'].find(el => {
-        //   return el['@type'] === "Recipe"
-        // })
-        // console.log(recipeIngred)
-        // const allUlElems = $('main ul')
-        // const ulElems = Object.keys(allUlElems)
-        //   .slice(0, 5)
-        //   .map(el => {
-        //     return allUlElems[el]
-        //   })
-        // const ulArray = [] 
-        // ulElems.forEach(el => {
-        //   console.log($(el).html())
-        //   // console.log($(el))
-        //   ulArray.push($(el))
-        // })
-        // console.log(ulArray)
-        res.status(200).send(ingred)
+        let metaObj = JSON.parse(recipeJson)
+        // console.log(metaObj)
+
+        // Return @recipe object in metadata
+        let recipeObj = scraper(metaObj, "@type", false, "Recipe")
+        console.log('here is the recipe obj', recipeObj)
+        
+        let name = scraper(recipeObj, "name")
+        let image = scraper(recipeObj, "image")
+        let ingred = scraper(recipeObj, "recipeIngredient")
+        let steps = scraper(recipeObj, "recipeInstructions")
+        let recipe = {
+          name: name,
+          image: image,
+          ingredients: ingred,
+          instructions: steps,
+          url: url
+        }
+        console.log('This is the recipe for ' + recipe.name)
+        console.log(recipe)
+
+        res.status(200).send(recipe)
       }
     })
   .catch(error => {
